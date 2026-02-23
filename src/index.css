@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* animations React Modal */
+.ReactModal__Overlay {
+  transition: transform 300ms ease-in-out;
+  transition-delay: 100ms;
+  transform: scale(0);
+}
+.ReactModal__Overlay--after-open {
+  transform: scale(1);
+}
+.ReactModal__Overlay--before-close {
+  transform: scale(0);
+}
