@@ -1,83 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
-import { LoginButton } from '../components/auth/LoginButton';
 import { Link } from 'react-router-dom';
-
+import { useAuthContext } from '../context/AuthContext';
+import { LoginButton } from './auth/LoginButton';
 
 export default function UserMenu() {
-  const { user, isAuthenticated, logout } = useAuth0();
+  const { isAuthenticated, logout } = useAuth0();
+  const { user } = useAuthContext();
   const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
 
-    // Définir si l'utilisateur est admin selon un claim ou app_metadata
-const isAdmin = user?.['https://api.yourapp.com/roles']?.[0] === 'Admin';
+  useEffect(() => {
+    const onKey = (e) => e.key === 'Escape' && setIsOpen(false);
+    const onClick = (e) => ref.current && !ref.current.contains(e.target) && setIsOpen(false);
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onClick);
+    return () => { document.removeEventListener('keydown', onKey); document.removeEventListener('mousedown', onClick); };
+  }, []);
 
-  const handleLogout = () => {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
-  };
+  if (!isAuthenticated) return <LoginButton className="btn-primary">Espace client</LoginButton>;
 
-  if (!isAuthenticated) {
-    return (
-      <LoginButton className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700" />
-    );
-  }
+  const isAdmin = user?.role === 'Admin';
+  const label = user?.name || user?.email || 'Mon compte';
 
   return (
-    <div className="relative">
+    <div className="relative" ref={ref}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 bg-white border border-gray-300 rounded-lg px-4 py-2 hover:bg-gray-50"
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+        className="btn-outline max-w-[14rem]"
       >
-        <div className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center text-white font-bold">
-          {user?.name?.[0] || user?.email?.[0] || 'U'}
-        </div>
-        <span className="text-sm font-medium">
-          {user?.name || user?.email}
-        </span>
-        <svg
-          className={`w-4 h-4 transition-transform ${
-            isOpen ? 'rotate-180' : ''
-          }`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
-        </svg>
+        <span className="truncate">{label}</span>
+        <span aria-hidden="true">▾</span>
       </button>
-
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
-          <div className="px-4 py-3 border-b border-gray-200">
-            <p className="text-sm font-semibold text-gray-900">
-              {user?.name || 'Utilisateur'}
-            </p>
-            <p className="text-xs text-gray-500">{user?.email===user?.name ? null : user?.email}</p>
-            <p className="text-xs text-red-600 mt-1">
-              {isAdmin ? '👑 Administrateur' : '👤 Client'}
-            </p>
-          </div>
-
-          <Link
-            to={isAdmin ? '/admin' : '/dashboard'}
-            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          >
-            📊 Mon espace
+        <div className="absolute right-0 z-10 mt-2 w-60 overflow-hidden rounded-2xl border border-encre-200 bg-white py-1 shadow-lift">
+          <p className="px-4 py-2 text-xs text-encre-600">{isAdmin ? 'Administratrice' : 'Client'}</p>
+          <Link to={isAdmin ? '/admin' : '/dashboard'} className="block px-4 py-2 text-sm text-encre-800 hover:bg-ardoise-50" onClick={() => setIsOpen(false)}>
+            {isAdmin ? 'Back-office' : 'Mon espace client'}
           </Link>
-
           <button
-            onClick={handleLogout}
-            className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-red-50"
+            type="button"
+            className="block w-full px-4 py-2 text-left text-sm text-encre-800 hover:bg-ardoise-50"
+            onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}
           >
-            🚪 Déconnexion
+            Déconnexion
           </button>
         </div>
       )}

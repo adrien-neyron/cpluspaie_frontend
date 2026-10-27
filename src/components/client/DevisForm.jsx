@@ -44,7 +44,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             required
             value={formData.company_name}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Ex : SARL Dupont"
           />
         </div>
@@ -60,7 +60,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             required
             value={formData.email}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="contact@societe.fr"
           />
         </div>
@@ -74,7 +74,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             name="telephone"
             value={formData.telephone}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="06 00 00 00 00"
           />
         </div>
@@ -88,7 +88,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             name="ccn"
             value={formData.ccn}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Ex : Syntec, BTP, HCR…"
           />
         </div>
@@ -104,7 +104,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             required
             value={formData.effectif}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Ex : 12"
           />
         </div>
@@ -118,7 +118,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             name="type_contrat"
             value={formData.type_contrat}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
           >
             <option value="cdi">CDI uniquement</option>
             <option value="cdd">CDD uniquement</option>
@@ -135,7 +135,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             name="cycle_paie"
             value={formData.cycle_paie}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
           >
             <option value="mensuel">Mensuel</option>
             <option value="bimensuel">Bimensuel</option>
@@ -152,7 +152,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             name="duree_mission"
             value={formData.duree_mission}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Ex : mission récurrente / 6 mois / ponctuelle"
           />
         </div>
@@ -167,7 +167,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
             rows={4}
             value={formData.message}
             onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3 resize-none focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full border rounded-lg px-4 py-3 resize-none focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Ex : reprise de dossier, sécurisation URSSAF, changement de CCN…"
           />
         </div>
@@ -177,7 +177,7 @@ export default function DevisForm({ onSubmit, isSubmitting = false }) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-lg transition"
+            className="w-full bg-ardoise-600 hover:bg-ardoise-700 text-white font-semibold py-3 rounded-lg transition"
           >
             {isSubmitting ? "Envoi en cours..." : "Demander un devis"}
           </button>

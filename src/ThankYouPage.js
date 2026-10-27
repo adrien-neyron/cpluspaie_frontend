@@ -43,7 +43,7 @@ export default function LandingPage() {
               <a
                 target="_blank"
                 href="https://gum.co/QaruQ"
-                className="mt-4 lg:mt-0 text-gray-100 bg-primary-500 px-6 py-3 rounded hover:bg-primary-900 focus:outline-none focus:shadow-outline border-none"
+                className="mt-4 lg:mt-0 text-gray-100 bg-ardoise-500 px-6 py-3 rounded hover:bg-ardoise-900 focus:outline-none focus:shadow-outline border-none"
               >
                 Download Now
               </a>
@@ -52,7 +52,7 @@ export default function LandingPage() {
 
           {/* Hero */}
           <div className="max-w-xl flex flex-col justify-between items-center py-20 lg:py-24 mx-auto text-center">
-            <h1 className="text-primary-900 text-4xl font-extrabold leading-snug">
+            <h1 className="text-ardoise-900 text-4xl font-extrabold leading-snug">
               Thank You!
             </h1>
             <p className="mt-4 text-gray-700 lg:text-base max-w-lg mx-auto lg:mx-0">

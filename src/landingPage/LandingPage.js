@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import Reveal from "../components/misc/Reveal.js";
 import Hero from "../components/hero/Home.js";
 import FeatureMissions from "../components/features/Missions.js";
 import MainFeature from "../components/features/Expertise.js";
@@ -9,9 +9,6 @@ import Testimonial from "../components/testimonials/Testimonials.js";
 import François from "../images/Francois bernhard.jpeg";
 import Sybille from "../images/sybille du peloux.jpeg";
 import Footer from "../components/footers/MiniCenteredFooter.js";
-import heroScreenshotImageSrc from "../images/carole.jpeg";
-import macHeroScreenshotImageSrc from "../images/team-illustration.svg";
-import prototypeIllustrationImageSrc from "../images/prototype-illustration.svg";
 import { ReactComponent as BriefcaseIcon } from "feather-icons/dist/icons/briefcase.svg";
 import { ReactComponent as MoneyIcon } from "feather-icons/dist/icons/dollar-sign.svg";
 
@@ -20,66 +17,23 @@ export default () => {
 
   return (
     <>
-      <Hero id="home" roundedHeaderButton={true} />
+      <Hero>
 
-      <motion.div
-        id="missions"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
+      <Reveal id="missions">
         <FeatureMissions
-          heading={
-            <>
-              Mes Services.
-            </>
-          }
+          heading={<>Un accompagnement <span className="mark">sur mesure</span></>}
+          description="Entrepreneure en gestion de paie, je vous propose des solutions personnalisées pour simplifier vos processus, assurer la conformité réglementaire et optimiser votre gestion sociale."
         />
-      </motion.div>
-      <motion.div
-        id="about"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
-        <MainFeature
-          imageSrc={heroScreenshotImageSrc}
-          imageBorder={true}
-          imageDecoratorBlob={true}
-        />
-      </motion.div>
-      <motion.div
-        id="steps"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
-        <FeatureWithSteps
-          heading={
-            <>
-              Facile de Travailler Ensemble.
-            </>
-          }
-          textOnLeft={false}
-          imageSrc={macHeroScreenshotImageSrc}
-          imageDecoratorBlob={true}
-        />
-      </motion.div>
-      <motion.div
-        id="values"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
+      </Reveal>
+      <Reveal id="about">
+        <MainFeature />
+      </Reveal>
+      <Reveal id="steps">
+        <FeatureWithSteps heading={<>Facile de <span className="mark">travailler ensemble</span></>} />
+      </Reveal>
+      <Reveal id="values">
         <MainFeature2
-          id="values"
-          heading={
-            <>
-              Je respecte toujours Mes Principes.
-            </>
-          }
-          imageSrc={prototypeIllustrationImageSrc }
-          showDecoratorBlob={false}
+          heading={<>Je respecte toujours <span className="mark">mes principes</span></>}
           features={[
             {
               Icon: MoneyIcon,
@@ -94,19 +48,11 @@ export default () => {
             },
           ]}
         />
-      </motion.div>
-      <motion.div
-        id="returns"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
+      </Reveal>
+      <Reveal id="returns">
         <Testimonial
-          heading={
-            <>
-              Ma relation avec les clients.
-            </>
-          }
+          subheading="Témoignages"
+          heading={<>Ma relation avec <span className="mark">les clients</span></>}
           testimonials={[
             {
               profileImageSrc:
@@ -127,8 +73,12 @@ export default () => {
               customerTitle: "Expert comptable",
             },
             {
+              // Avatar à initiales (pas de photo de stock ni de requête vers un site tiers)
               profileImageSrc:
-                "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?q=80&w=1974&auto=format&fit=facearea&facepad=2.25&w=512&h=512&q=80",
+                "data:image/svg+xml;utf8," +
+                encodeURIComponent(
+                  '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128"><rect width="128" height="128" fill="#465F80"/><text x="50%" y="54%" font-family="Arial" font-size="48" font-weight="700" fill="#fff" text-anchor="middle" dominant-baseline="middle">MS</text></svg>'
+                ),
               heading: "LINAMAR",
               quote:
                 "Carole m'a accompagnée durant mon intégration. Elle est réactive, disponible et a été un réel soutien grâce à son recul et son expérience sur des points paie complexes.",
@@ -136,16 +86,10 @@ export default () => {
               customerTitle: "Responsable paie",
             },
           ]}
-          id="returns"
         />
-      </motion.div>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}>
-        <Footer />
-      </motion.div>
+      </Reveal>
+      </Hero>
+      <Footer />
     </>
   );
 };

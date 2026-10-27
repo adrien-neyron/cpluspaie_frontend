@@ -10,6 +10,7 @@ import { ReactComponent as SimpleIcon } from "../../images/simple-icon.svg";
 
 export default function Features({
   id,
+  subheading = "Mes services",
   heading = "Amazing Features",
   description = "Entrepreneur en gestion de paie, je vous propose des solutions personnalisées pour simplifier vos processus, assurer la conformité réglementaire et optimiser votre gestion sociale.",
   cards = null,
@@ -55,22 +56,30 @@ export default function Features({
 
   if (!cards) cards = defaultCards;
 
-  return (
-    <section id={id} className="min-h-screen px-4  md:py-12 max-w-screen-xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center md:text-left mt-8">{heading}</h2>
-      {description && <p className="text-gray-700 text-center md:text-left mt-6">{description}</p>}
+  const tones = [
+    "bg-ardoise-100 text-ardoise-700 group-hover:bg-ardoise-500 group-hover:text-white",
+    "bg-corail-100 text-corail-700 group-hover:bg-corail-600 group-hover:text-white",
+  ];
 
-      <div className="flex flex-wrap justify-center md:justify-start gap-8">
-        {cards.map((card, i) => (
-          <div key={i} className="w-full sm:w-1/2 lg:w-1/3 max-w-sm flex flex-col items-center text-center sm:text-left p-6 border rounded-lg">
-            <div className="bg-gray-100 p-5 rounded-full flex items-center justify-center mb-4">
-              <card.Icon className="w-6 h-6 text-red-500" />
-            </div>
-            <h3 className="text-xl font-bold mb-2">{card.title}</h3>
-            <p className="text-gray-800 leading-relaxed">{card.description}</p>
-          </div>
-        ))}
+  return (
+    <section id={id} className="mx-auto max-w-screen-xl px-4 py-16 md:py-24">
+      <div className="mx-auto max-w-3xl text-center">
+        <p className="eyebrow">{subheading}</p>
+        <h2 className="section-title mt-4">{heading}</h2>
+        {description && <p className="lead mt-5">{description}</p>}
       </div>
+
+      <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map((card, i) => (
+          <li key={i} className="group card card-hover flex flex-col p-7">
+            <div className={`flex h-14 w-14 items-center justify-center rounded-2xl transition duration-300 ${tones[i % 2]}`}>
+              <card.Icon className="h-6 w-6" aria-hidden="true" />
+            </div>
+            <h3 className="mt-5 text-xl font-extrabold leading-snug text-encre-800">{card.title}</h3>
+            <p className="mt-3 leading-relaxed text-encre-600">{card.description}</p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

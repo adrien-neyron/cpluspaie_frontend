@@ -41,7 +41,7 @@ useEffect(() => {
   }
 
   if (error) {
-    return <p className="text-red-500">{error}</p>;
+    return <p className="text-ardoise-600">{error}</p>;
   }
 
   if (requests.length === 0) {

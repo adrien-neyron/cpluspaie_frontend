@@ -1,58 +1,53 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useApi } from "../hooks/useApi";
+import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useApi } from '../hooks/useApi';
 
-type AppUser = {
-  id: string;
-  email: string;
-  name?: string;
-  role: "Admin" | "Client";
-  credits: number;
-};
-
+export type AppUser = { id: string; email: string; name?: string | null; role: 'Admin' | 'Client'; credits?: number };
 type AuthContextType = {
   user: AppUser | null;
   loading: boolean;
+  /** 'forbidden' = compte Auth0 valide mais non invité (inscription libre interdite). */
+  error: null | 'forbidden' | 'unavailable';
 };
 
-const AuthContext = createContext<AuthContextType>({ user: null, loading: true });
+const AuthContext = createContext<AuthContextType>({ user: null, loading: true, error: null });
 
-type AuthProviderProps = { children: ReactNode };
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const { isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated, isLoading } = useAuth0();
   const { apiCall } = useApi();
   const [user, setUser] = useState<AppUser | null>(null);
+  const [error, setError] = useState<AuthContextType['error']>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const syncUser = async () => {
+    let cancelled = false;
+    const sync = async () => {
       try {
-  const res = await apiCall("/auth/me");
-        setUser(res);
-      } catch (err) {
-        console.error("❌ User sync failed", err);
+        const me = await apiCall('/auth/me');
+        if (!cancelled) { setUser(me); setError(null); }
+      } catch (err: any) {
+        if (cancelled) return;
         setUser(null);
+        setError(err?.response?.status === 403 ? 'forbidden' : 'unavailable');
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
+    if (isLoading) return;
+    if (isAuthenticated) sync();
+    else { setUser(null); setError(null); setLoading(false); }
+    return () => { cancelled = true; };
+  }, [isAuthenticated, isLoading, apiCall]);
 
-    if (isAuthenticated) syncUser();
-    else if (!isLoading) {
-      setUser(null);
-      setLoading(false);
-    }
-  }, [isAuthenticated, isLoading, getAccessTokenSilently, apiCall]);
-
-  if (isLoading || loading)
+  if (isLoading || loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-red-600" />
+      <div role="status" aria-live="polite" className="flex min-h-screen items-center justify-center">
+        <div className="h-10 w-10 animate-spin rounded-full border-b-2 border-ardoise-600" aria-hidden="true" />
+        <span className="sr-only">Chargement…</span>
       </div>
     );
-
-  return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>;
+  }
+  return <AuthContext.Provider value={{ user, loading, error }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => useContext(AuthContext);

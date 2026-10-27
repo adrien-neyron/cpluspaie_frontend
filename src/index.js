@@ -7,12 +7,19 @@ import { auth0Config } from './utils/auth0.config';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Après connexion, retour sur la page demandée (par défaut /espace qui oriente selon le rôle).
+const onRedirectCallback = (appState) => {
+  window.history.replaceState({}, document.title, appState?.returnTo || '/espace');
+  window.dispatchEvent(new PopStateEvent('popstate'));
+};
+
 root.render(
   <React.StrictMode>
     <Auth0Provider
       domain={auth0Config.domain}
       clientId={auth0Config.clientId}
       authorizationParams={auth0Config.authorizationParams}
+      onRedirectCallback={onRedirectCallback}
       cacheLocation="localstorage"
       useRefreshTokens={true}
     >

@@ -1,35 +1,16 @@
 import React from "react";
-import { motion } from "framer-motion";
-import Header from "../components/headers/Header.js"; // <-- IMPORT HEADER (chemin relatif)
+import Header from "../components/headers/Header.js";
 import ContactUsForm from "../components/forms/Contact.js";
 import Footer from "../components/footers/MiniCenteredFooter.js";
+import { useDocumentTitle } from "../components/portal/ui";
 
-const ContactUsPage = () => {
+export default function ContactUsPage() {
+  useDocumentTitle("Contact");
   return (
     <>
       <Header />
-
-      <motion.div
-        id="contact"
-        className="px-4"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="max-w-screen-xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-black text-gray-900">
-              {/* Titre ici si nécessaire */}
-            </h2>
-          </div>
-          <ContactUsForm />
-        </div>
-      </motion.div>
-
+      <main id="contenu"><ContactUsForm /></main>
       <Footer />
     </>
   );
-};
-
-export default ContactUsPage;
+}

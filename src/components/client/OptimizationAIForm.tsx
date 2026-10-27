@@ -113,7 +113,7 @@ export default function OptimizationAIForm() {
               value={formData.ccn}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-red-500"
+              className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-ardoise-600"
               placeholder="Ex : Syntec, Bâtiment, HCR"
             />
           </div>
@@ -124,7 +124,7 @@ export default function OptimizationAIForm() {
               name="secteur"
               value={formData.secteur}
               onChange={handleChange}
-              className="px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-red-500"
+              className="px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-ardoise-600"
               placeholder="Secteur d’activité"
             />
             <input
@@ -134,7 +134,7 @@ export default function OptimizationAIForm() {
               value={formData.effectif}
               onChange={handleChange}
               required
-              className="px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-red-500"
+              className="px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-ardoise-600"
               placeholder="Effectif"
             />
           </div>
@@ -149,7 +149,7 @@ export default function OptimizationAIForm() {
                     type="checkbox"
                     checked={formData.typeContrats.includes(c)}
                     onChange={() => handleCheckboxChange("typeContrats", c)}
-                    className="accent-red-500"
+                    className="accent-ardoise-600"
                   />
                   {c}
                 </label>
@@ -167,7 +167,7 @@ export default function OptimizationAIForm() {
                     type="checkbox"
                     checked={formData.objectifs.includes(o.id)}
                     onChange={() => handleCheckboxChange("objectifs", o.id)}
-                    className="accent-red-500"
+                    className="accent-ardoise-600"
                   />
                   {o.label}
                 </label>
@@ -180,7 +180,7 @@ export default function OptimizationAIForm() {
             name="priorite"
             value={formData.priorite}
             onChange={handleChange}
-            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-red-500">
+            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-ardoise-600">
             <option value="economies">Économies</option>
             <option value="securite">Sécurité juridique</option>
             <option value="equilibre">Équilibre</option>
@@ -192,7 +192,7 @@ export default function OptimizationAIForm() {
             value={formData.problemes}
             onChange={handleChange}
             rows={4}
-            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-red-500"
+            className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:outline-none focus:ring-ardoise-600"
             placeholder="Difficultés rencontrées..."
           />
 
@@ -201,7 +201,7 @@ export default function OptimizationAIForm() {
             disabled={isLoading}
             className={`w-full py-3 rounded-lg font-semibold ${
               user?.credits && user?.credits > 0
-                ? "bg-red-600 text-white disabled:opacity-50"
+                ? "bg-ardoise-600 text-white disabled:opacity-50"
                 : "bg-gray-700 text-white disabled:opacity-50"
             }`}>
             {isLoading
@@ -213,7 +213,7 @@ export default function OptimizationAIForm() {
         </form>
       ) : (
         <div>
-          <p className="mb-4 text-red-600 font-medium">
+          <p className="mb-4 text-ardoise-600 font-medium">
             Vous n’avez pas assez de crédits. Veuillez effectuer un paiement pour continuer.
           </p>
  {showPayment && user && (
